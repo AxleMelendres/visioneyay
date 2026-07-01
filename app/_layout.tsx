@@ -18,6 +18,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="CameraScreen" options={{ title: 'Take Photo', headerShown: true }} />
         <Stack.Screen name="PreviewScreen" options={{ title: 'Preview', headerShown: true }} />
+        <Stack.Screen name="ResultScreen" options={{ title: 'Analysis', headerShown: true }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
       </Stack>
       <StatusBar style="auto" />
