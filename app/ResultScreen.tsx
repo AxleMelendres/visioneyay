@@ -222,6 +222,16 @@ export default function ResultScreen(): React.ReactElement {
     }
   };
 
+  return (
+    <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+      <View style={styles.headerSection}>
+        <Text style={styles.headerTitle}>{getAnalysisTypeTitle()}</Text>
+      </View>
+      {renderAnalysisContent()}
+    </ScrollView>
+  );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
