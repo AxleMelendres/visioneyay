@@ -123,87 +123,97 @@ export default function ResultScreen(): React.ReactElement {
   };
 
   const renderAnalysisContent = () => {
-    if (!analysis) return null;
-
     switch (promptKey) {
       case 'academic':
         return (
-          <>
+          <View style={styles.resultBox}>
             {analysis.objects && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Objects</Text>
+              <View style={styles.resultSection}>
+                <Text style={styles.resultLabel}>Objects:</Text>
                 {Array.isArray(analysis.objects) ? (
-                  analysis.objects.map((obj, index) => (
-                    <Text key={index} style={styles.bulletPoint}>• {obj}</Text>
+                  analysis.objects.map((obj: string, index: number) => (
+                    <Text key={index} style={styles.resultBulletPoint}>• {obj}</Text>
                   ))
                 ) : (
-                  <Text style={styles.sectionText}>{analysis.objects}</Text>
+                  <Text style={styles.resultText}>{analysis.objects}</Text>
                 )}
               </View>
             )}
             {analysis.educationalContext && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Educational Context</Text>
-                <Text style={styles.sectionText}>{analysis.educationalContext}</Text>
+              <View style={styles.resultSection}>
+                <Text style={styles.resultLabel}>Context:</Text>
+                <Text style={styles.resultText}>{analysis.educationalContext}</Text>
               </View>
             )}
             {analysis.feedback && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Feedback</Text>
-                <Text style={styles.sectionText}>{analysis.feedback}</Text>
+              <View style={styles.resultSection}>
+                <Text style={styles.resultLabel}>Feedback:</Text>
+                <Text style={styles.resultText}>{analysis.feedback}</Text>
               </View>
             )}
-          </>
+          </View>
         );
 
       case 'safety':
         return (
-          <>
+          <View style={styles.resultBox}>
             {analysis.hazards && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Hazards</Text>
-                <Text style={styles.sectionText}>{analysis.hazards}</Text>
+              <View style={styles.resultSection}>
+                <Text style={styles.resultLabel}>Hazards:</Text>
+                <Text style={styles.resultText}>{analysis.hazards}</Text>
               </View>
             )}
             {analysis.riskLevel && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Risk Level</Text>
-                <Text style={[styles.sectionText, getRiskLevelColor(analysis.riskLevel)]}>
+              <View style={styles.resultSection}>
+                <Text style={styles.resultLabel}>Risk Level:</Text>
+                <Text style={[styles.resultText, getRiskLevelColor(analysis.riskLevel)]}>
                   {analysis.riskLevel.toUpperCase()}
                 </Text>
               </View>
             )}
-          </>
+            {analysis.recommendations && (
+              <View style={styles.resultSection}>
+                <Text style={styles.resultLabel}>Recommendations:</Text>
+                <Text style={styles.resultText}>{analysis.recommendations}</Text>
+              </View>
+            )}
+          </View>
         );
 
       case 'inventory':
         return (
-          <>
+          <View style={styles.resultBox}>
             {analysis.assets && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Assets</Text>
+              <View style={styles.resultSection}>
+                <Text style={styles.resultLabel}>Assets:</Text>
                 {Array.isArray(analysis.assets) ? (
-                  analysis.assets.map((asset, index) => (
-                    <Text key={index} style={styles.bulletPoint}>• {asset}</Text>
+                  analysis.assets.map((asset: string, index: number) => (
+                    <Text key={index} style={styles.resultBulletPoint}>• {asset}</Text>
                   ))
                 ) : (
-                  <Text style={styles.sectionText}>{analysis.assets}</Text>
+                  <Text style={styles.resultText}>{analysis.assets}</Text>
                 )}
               </View>
             )}
-            {analysis.notes && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Notes</Text>
-                <Text style={styles.sectionText}>{analysis.notes}</Text>
+            {analysis.totalItemsCount && (
+              <View style={styles.resultSection}>
+                <Text style={styles.resultLabel}>Total Items:</Text>
+                <Text style={styles.resultText}>{analysis.totalItemsCount}</Text>
               </View>
             )}
-          </>
+            {analysis.notes && (
+              <View style={styles.resultSection}>
+                <Text style={styles.resultLabel}>Notes:</Text>
+                <Text style={styles.resultText}>{analysis.notes}</Text>
+              </View>
+            )}
+          </View>
         );
 
       default:
         return (
-          <View style={styles.section}>
-            <Text style={styles.sectionText}>{JSON.stringify(analysis, null, 2)}</Text>
+          <View style={styles.resultBox}>
+            <Text style={styles.resultText}>{JSON.stringify(analysis, null, 2)}</Text>
           </View>
         );
     }
@@ -291,6 +301,34 @@ const styles = StyleSheet.create({
     color: '#333',
     lineHeight: 20,
     marginBottom: 6,
+    marginLeft: 8,
+  },
+  resultBox: {
+    borderWidth: 2,
+    borderColor: '#333',
+    borderRadius: 8,
+    padding: 20,
+    backgroundColor: '#f9f9f9',
+  },
+  resultSection: {
+    marginBottom: 16,
+  },
+  resultLabel: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#000',
+    marginBottom: 8,
+  },
+  resultText: {
+    fontSize: 13,
+    color: '#333',
+    lineHeight: 18,
+  },
+  resultBulletPoint: {
+    fontSize: 13,
+    color: '#333',
+    lineHeight: 18,
+    marginBottom: 4,
     marginLeft: 8,
   },
   headerSection: {
